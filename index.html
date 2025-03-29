@@ -311,8 +311,10 @@ zaio`.split('\n').map((item,id)=>item.split('').map(i=>{
             b.classList.add('left')
     }
     function replace(used){
-        for(let i=4;i<=17;i++){
+        p=document.querySelector(`#leftovers`).children.length
+        for(let i=0;i<p;i++){
             document.querySelector(`.left`).remove()
+            console.log(document.querySelector('#leftovers').children)
         }
         lo(used)
     }
