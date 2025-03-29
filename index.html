@@ -20,6 +20,11 @@
         <input id="input"/>
         <button id="button" onclick="submit()">Submit</button>
     </div>
+    <div id="sorting">
+        <button onclick="sorting('A')">Alphabetically</button>
+        <button onclick="sorting('F')">In found order</button>
+
+    </div>
     <div id="result"></div>
     <div id="bonus"></div>
     <div id="wrong"></div>
@@ -290,6 +295,17 @@ zaio`.split('\n').map((item,id)=>item.split('').map(i=>{
         }))
 
     }
+    let flag=false
+    function sorting(order){
+        if(order=='F'){
+            document.querySelector("#result").textContent=fin.join(' ')
+        }else{
+            document.querySelector("#result").textContent=fin.slice().sort().join(' ')
+
+        }
+        flag=order=='A'
+        console.log(flag)
+    }
     function lo(used){
         let arr=[]
         for(let i=4;i<17;i++){
@@ -324,7 +340,7 @@ zaio`.split('\n').map((item,id)=>item.split('').map(i=>{
     document.querySelector("#input").addEventListener('keydown',(e)=>{
         e.key=='Enter' && submit()
     })
-    let fin=[]
+        let fin=[]
         let wrong=[]
         let bonus_words=[]
     function submit(){
@@ -339,7 +355,7 @@ zaio`.split('\n').map((item,id)=>item.split('').map(i=>{
                 return
             }
             if(all.includes(txt)&&!fin.includes(txt)){
-                result.textContent=`${result.textContent} ${txt}`.split(' ').sort().join(' ')
+                result.textContent=flag?`${result.textContent} ${txt}`.split(' ').sort().join(' '):`${fin} ${txt}`
                 fin.push(txt)
                 counter.textContent=`Squaredle ${fin.length}/${all.length}`
                 replace(fin)
@@ -443,5 +459,14 @@ zaio`.split('\n').map((item,id)=>item.split('').map(i=>{
     }
     #leftovers .left{
         text-align: left;
+    }
+    #sorting{
+        display:flex;
+        flex-direction:row;
+    }
+    #sorting button{
+        margin:10px;
+        padding:2px;
+        background-color:white;
     }
 </style>
