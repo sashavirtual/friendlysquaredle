@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+        <div id="squaredle">
+            <div id="counter">Squaredle 0/0</div>
+        <div class='row 'id="n1"></div>
+        <div class='row 'id="n2"></div>
+        <div class='row 'id="n3"></div>
+        <div class='row 'id="n4"></div>
+
+    </div>
+    <div id="box">
+        <p id="caption">Введите слово</p>
+        <input id="input"/>
+        <button id="button" onclick="submit()">Submit</button>
+    </div>
+    <div id="result"></div>
+    <div id="bonus"></div>
+    <div id="wrong"></div>
+    
+</body>
+</html>
+
+<script>
+    let squaredle=document.querySelector('squaredle');
+    function f(){
+        `quzj
+asex
+rtnn
+zaio`.split('\n').map((item,id)=>item.split('').map(i=>{
+            let b=document.createElement('div')
+            b.textContent=i
+            document.querySelector(`#n${id+1}`).appendChild(b)
+            b.classList.add('element')
+        }))
+    }
+    f()
+    let all=`
+anti
+ants
+arse
+arts
+inns
+ions
+jest
+jets
+nate
+nest
+nets
+nine
+none
+ones
+rain
+rant
+rate
+rats
+sent
+star
+tens
+tins
+tsar
+zest
+zeta
+annex
+inset
+intra
+nines
+onset
+quart
+quest
+rains
+rants
+rates
+ratio
+satin
+squat
+stain
+tiara
+train
+trans
+xenon
+innate
+nation
+quartz
+ration
+strain
+tarzan
+trains
+rations
+question
+quarantine`.split('\n')
+    document.querySelector("#counter").textContent=`Squaredle 0/${all.length}`
+    document.querySelector("#input").addEventListener('keydown',(e)=>{
+        e.key=='Enter' && submit()
+    })
+    function submit(){
+        let bonus=`
+raines
+senna
+jenna
+tran
+tina
+tara
+sata
+sena
+rani
+inst
+arte
+aint
+anni
+anno
+anon
+ante
+aine
+ains
+aion
+aits
+anes
+anet
+anion
+annet
+annite
+anoine
+ansa
+ansar
+ansate
+ansation
+ansu
+anta
+antar
+antas
+antes
+antra
+arain
+arains
+arase
+arati
+aration
+arsenation
+arseno
+arzan
+asta
+astian
+astr
+astrain
+atar
+aten
+ates
+enation
+ennia
+enoint
+enstar
+entia
+entr
+entrain
+etas
+etna
+inne
+innest
+innet
+inone
+instar
+instr
+insue
+inta
+intarsa
+intr
+ione
+iten
+itza
+jesu
+nain
+naio
+nates
+natr
+nenta
+neti
+niata
+nits
+noint
+nona
+nones
+nonet
+oint
+qats
+quar
+quarantines
+quarta
+quartan
+quartane
+quartano
+quartans
+quarte
+quartes
+quartin
+quartine
+quarts
+quat
+quata
+quate
+quatrain
+quatrains
+quent
+ques
+quet
+rane
+ranine
+rann
+raquet
+rase
+rasen
+rasenna
+rata
+ratan
+ratans
+ratine
+ratines
+saran
+sart
+sartain
+sarzan
+satai
+sate
+sati
+satine
+sation
+senit
+sennit
+senti
+seta
+snit
+snite
+snitz
+squatina
+squet
+staio
+stane
+stanine
+stanno
+sten
+stenar
+stenia
+stenion
+steno
+stine
+stion
+stra
+suent
+suet
+tain
+tains
+tane
+tano
+tans
+tarai
+tarau
+tars
+tarse
+tarzans
+tasu
+taus
+tenai
+tenia
+tenino
+tenio
+tenno
+tenon
+tenons
+tiar
+tiaras
+tine
+tines
+tinne
+tino
+transe
+tzar
+tzars
+usar
+usara
+usation
+usent
+usnin
+ustion
+xenia
+xenian
+xenons
+zain
+zant
+zante
+zati
+zetas`.split('\n')
+        
+        let txt=document.querySelector("#input").value.trim().toLowerCase()
+        let result=document.querySelector("#result")
+        let w=document.querySelector("#wrong")
+        let b=document.querySelector("#bonus")
+        let counter=document.querySelector("#counter")
+        let fin=[]
+        let wrong=[]
+        let bonus_words=[]
+            if (txt.length<4){
+                return
+            }
+            if(all.includes(txt)&&!fin.includes(txt)){
+                result.textContent=`${result.textContent} ${txt}`.split(' ').sort().join(' ')
+                fin.push(txt)
+                counter.textContent=`Squaredle ${fin.length}/${all.length}`
+            }else if(bonus.includes(txt)&&!bonus_words.includes(txt)){
+                b.textContent=`${b.textContent} ${txt}`.split(' ').sort().join(' ')
+                bonus_words.push(txt)
+                console.log(txt)
+            }else if(!all.includes(txt)&&!wrong.includes(txt)){
+                w.textContent=`${w.textContent} ${txt}`.split(' ').sort().join(' ')
+                wrong.push(txt)
+            }
+        document.querySelector("#input").value=''
+}
+</script>
+<style>
+    *{
+        margin:0;
+        padding:0;
+        /* overflow: hidden; */
+    }
+    body{
+        width:100vw;
+        height:100vh;
+        display:flex;
+        flex-direction:column;
+        align-items: center;
+        justify-content: center;
+    }
+    body div{
+        display:flex;
+        flex-direction:column;
+        align-items: center;
+        justify-content: center;
+    }
+    #input{
+        width:300px;
+        height:30px;
+    }
+    #button{
+        width:300px;
+        height:30px;
+    }
+    #caption{
+        margin:35px 0;
+        width:300px;
+        height:36px;
+        margin-top:100px; 
+        font-size:35px;
+    }
+    #result{
+        font-size:35px;
+        width:90vw;
+        height:15vh;
+    }
+    #wrong{
+        font-size:35px;
+        width:90vw;
+        height:15vh;
+        color:red;
+    }
+    #bonus{
+        font-size:35px;
+        width:90vw;
+        height:15vh;
+        color:blue;
+    }
+    #squaredle{
+        height:30vh;
+        width:30vh;
+    }
+    .row{
+        display:flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items:center;
+    }
+    .row > .element{
+        width:6vh;
+        height:6vh;
+        font-size:5vh;
+        border:1px solid black;
+        border-radius:5px;
+    }
+    #box{
+        height:65vh;
+    }
+</style>
