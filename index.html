@@ -6,6 +6,7 @@
     <title>Document</title>
 </head>
 <body>
+        <div id="leftovers"></div>
         <div id="squaredle">
             <div id="counter">Squaredle 0/0</div>
         <div class='row 'id="n1"></div>
@@ -28,78 +29,7 @@
 
 <script>
     let squaredle=document.querySelector('squaredle');
-    function f(){
-        `quzj
-asex
-rtnn
-zaio`.split('\n').map((item,id)=>item.split('').map(i=>{
-            let b=document.createElement('div')
-            b.textContent=i
-            document.querySelector(`#n${id+1}`).appendChild(b)
-            b.classList.add('element')
-        }))
-    }
-    f()
-    let all=`
-anti
-ants
-arse
-arts
-inns
-ions
-jest
-jets
-nate
-nest
-nets
-nine
-none
-ones
-rain
-rant
-rate
-rats
-sent
-star
-tens
-tins
-tsar
-zest
-zeta
-annex
-inset
-intra
-nines
-onset
-quart
-quest
-rains
-rants
-rates
-ratio
-satin
-squat
-stain
-tiara
-train
-trans
-xenon
-innate
-nation
-quartz
-ration
-strain
-tarzan
-trains
-rations
-question
-quarantine`.split('\n')
-    document.querySelector("#counter").textContent=`Squaredle 0/${all.length}`
-    document.querySelector("#input").addEventListener('keydown',(e)=>{
-        e.key=='Enter' && submit()
-    })
-    function submit(){
-        let bonus=`
+    let bonus=`
 raines
 senna
 jenna
@@ -294,15 +224,115 @@ zant
 zante
 zati
 zetas`.split('\n')
+    let all=`
+anti
+ants
+arse
+arts
+inns
+ions
+jest
+jets
+nate
+nest
+nets
+nine
+none
+ones
+rain
+rant
+rate
+rats
+sent
+star
+tens
+tins
+tsar
+zest
+zeta
+annex
+inset
+intra
+nines
+onset
+quart
+quest
+rains
+rants
+rates
+ratio
+satin
+squat
+stain
+tiara
+train
+trans
+xenon
+innate
+nation
+quartz
+ration
+strain
+tarzan
+trains
+rations
+question
+quarantine`.split('\n')
+    function f(){
+        `quzj
+asex
+rtnn
+zaio`.split('\n').map((item,id)=>item.split('').map(i=>{
+            let b=document.createElement('div')
+            b.textContent=i
+            document.querySelector(`#n${id+1}`).appendChild(b)
+            b.classList.add('element')
+        }))
+
+    }
+    function lo(used){
+        let arr=[]
+        for(let i=4;i<17;i++){
+            let dif=all.filter(item=>item.length==i).length-used.filter(item=>item.length==i).length
+            if(dif==0){
+                continue
+            }
+            arr.push(`${i}: ${dif}`)
+        }
+        arr.map((i,id)=>{
+            let b=document.createElement('div')
+            b.textContent=i
+            document.querySelector(`#leftovers`).appendChild(b)
+            b.classList.add('left')
+    })
+        let b=document.createElement('div')
+        b.textContent=`Bonus: ${bonus.length}`
+            document.querySelector(`#leftovers`).appendChild(b)
+            b.classList.add('left')
+    }
+    function replace(used){
+        for(let i=4;i<=17;i++){
+            document.querySelector(`.left`).remove()
+        }
+        lo(used)
+    }
+    f()
+    lo([])
+    document.querySelector("#counter").textContent=`Squaredle 0/${all.length}`
+    document.querySelector("#input").addEventListener('keydown',(e)=>{
+        e.key=='Enter' && submit()
+    })
+    let fin=[]
+        let wrong=[]
+        let bonus_words=[]
+    function submit(){
         
         let txt=document.querySelector("#input").value.trim().toLowerCase()
         let result=document.querySelector("#result")
         let w=document.querySelector("#wrong")
         let b=document.querySelector("#bonus")
         let counter=document.querySelector("#counter")
-        let fin=[]
-        let wrong=[]
-        let bonus_words=[]
+
             if (txt.length<4){
                 return
             }
@@ -310,6 +340,7 @@ zetas`.split('\n')
                 result.textContent=`${result.textContent} ${txt}`.split(' ').sort().join(' ')
                 fin.push(txt)
                 counter.textContent=`Squaredle ${fin.length}/${all.length}`
+                replace(fin)
             }else if(bonus.includes(txt)&&!bonus_words.includes(txt)){
                 b.textContent=`${b.textContent} ${txt}`.split(' ').sort().join(' ')
                 bonus_words.push(txt)
@@ -374,8 +405,8 @@ zetas`.split('\n')
         color:blue;
     }
     #squaredle{
-        height:30vh;
-        width:30vh;
+        height:40vh;
+        width:40vh;
     }
     .row{
         display:flex;
@@ -384,13 +415,31 @@ zetas`.split('\n')
         align-items:center;
     }
     .row > .element{
-        width:6vh;
-        height:6vh;
-        font-size:5vh;
+        width:10vh;
+        height:10vh;
+        font-size:8vh;
         border:1px solid black;
         border-radius:5px;
     }
     #box{
         height:65vh;
+    }
+    #counter{
+        margin-top:100px;
+        font-size:5vh;
+    }
+    #leftovers{
+        position:fixed;
+        left:0;
+        top:0;
+        font-size:25px;
+        display:flex;
+        flex-direction:column;
+        justify-content: left;
+        align-items: flex-start;
+        margin-left:13px;
+    }
+    #leftovers .left{
+        text-align: left;
     }
 </style>
